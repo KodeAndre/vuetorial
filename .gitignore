@@ -11,6 +11,8 @@ node_modules
 .DS_Store
 coverage
 *.local
+dist
+vue.config.ts
 
 /cypress/videos/
 /cypress/screenshots/
