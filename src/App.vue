@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, watch, watchEffect } from 'vue'
+import { default as ChildComp } from './components/ChildComp.vue'
 
 const counter = reactive({
   count: 0
@@ -8,6 +9,8 @@ const counter = reactive({
 const text = ref('')
 const state = ref(true)
 const message = ref('Hello world!')
+const childTitle = ref('Child title')
+const childMsg = ref('No child message yet')
 
 let id = 0
 
@@ -38,6 +41,9 @@ function increment() {
 function decrement() {
   counter.count--
 }
+watch(counter, (value) => {
+  console.log("counterValue" ,value.count)
+})
 </script>
 
 <template>
@@ -64,6 +70,8 @@ function decrement() {
   <button @click="hideCompleted = !hideCompleted">
     {{ hideCompleted ? 'Show all' : 'Hide completed' }}
   </button>
+  <ChildComp @response="(msg) => childMsg = msg" :msg="childTitle">Slotted text</ChildComp>
+  <p>{{ childMsg }}</p>
 </template>
 
 <style>
